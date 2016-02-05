@@ -1,0 +1,59 @@
+- hosts: all
+  gather_facts: yes         
+  become: no
+  roles:
+    - ubuntu-basics
+    - hosts
+  vars:
+    # for hosts:
+    # hosts_table:
+    #  - hostname: host01.local
+    #    ipv4_address: 192.168.0.1
+
+    # for role: add_group
+    # my_groups:
+    #   - group: my_group
+    #     gid: 10000
+
+    # for role: add_user
+    # my_users:
+    #   - user: my_user
+    #     group: my_group
+    #     groups: my_group,adm,sudo
+    #     password:
+    #     uid: 10000
+    #     createhome: yes
+
+
+- hosts: apt-mirror-server
+  gather_facts: no           
+  become: no
+  vars:
+    apt_mirror_storage_path: /mnt/disk1/apt-mirror
+  roles:
+    - apt-mirror
+
+
+- hosts: apt-mirror-client
+  gather_facts: no
+  become: no
+  roles:
+    - apt-mirror-client
+  vars:
+    my_apt_server: tristan.local
+    
+
+- hosts: dns-server
+  roles:
+    - dnsmasq
+  vars:
+    dns_table:
+      - nameserver: 8.8.8.8
+      - nameserver: 8.8.4.4
+  
+
+- hosts: cluster-master
+  gather_facts: no
+  sudo: no
+
+  
