@@ -8,7 +8,4 @@
 - include: shell.yml
 - include: ntp.yml
 - include: editor.yml
-- include: devenv.yml
-- include: devtools.yml
-- include: python.yml
-- include: gdb.yml
+- include: enable_debug.yml

@@ -1,8 +1,7 @@
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
-{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }} {{ inventory_hostname }}
-
 {% for item in hosts_table %}
 {{ item['ipv4_address'] }} {{ item['hostname'] }} {{ item['alias'] }}
 {% endfor %}
+
