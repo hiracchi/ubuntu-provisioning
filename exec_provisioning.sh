@@ -1,30 +1,36 @@
 #!/bin/bash
 
-export LANG=C
-export LC_ALL=C
+VERBOSE="-vvvv"
+GROUP="vagrant"
 
-# VERBOSE="-vvvv"
-GROUP="all"
-# USE_SSH_PASSWORD="-k -c paramiko"
-# USE_SSH_PASSWORD="-k"
-# USE_SSH_PRIVATEKEY="--private-key=~/.ssh/key.pem"
-ASK_SUDO_PASS="--ask-become-pass"
+# setup admin env
+setup_admin()
+{
+    echo "setup admin ..."
+    ansible-playbook ${VERBOSE} \
+        -i admin.hosts \
+        ${ASK_BECOME_PASS} \
+        -l ${GROUP} \
+        admin.yaml \
+        $*
+    echo
+}
 
-# setup ssh-keys
-#ansible-playbook ${VERBOSE} \
-#                 -i hosts.setup-sshkeys \
-#                 -c paramiko \
-#                 --ask-pass \
-#                 --ask-become-pass \
-#                 -l ${GROUP} \
-#                 setup-sshkeys.yaml \
-#                 $*
+do_provisioning()
+{
+    echo "provisioning ..."
+    ansible-playbook ${VERBOSE} \
+        -i ubuntu-basics.hosts \
+        --ask-vault-pass \
+        ${ASK_BECOME_PASS} \
+        -l ${GROUP} \
+        ubuntu-basics.yaml \
+        $*
+    echo "done."
+}
+
 
 # main
-ansible-playbook ${VERBOSE} \
-                 ${ASK_SUDO_PASS} \
-                 -i th-j1800n.hosts \
-                 -l ${GROUP} \
-                 th-j1800n.yaml \
-                 $*
+ansible -i ubuntu-basics.hosts --ask-vault-pass -a "uptime" ${GROUP} 2>&1 > /dev/null || setup_admin
+do_provisioning
 

@@ -1,4 +1,5 @@
-
-- name: change hostname
+---
+- name: setup hostname
   become: yes
-  shell: hostname {{ inventory_hostname }}
+  hostname: name={{ inventory_hostname }}
+  

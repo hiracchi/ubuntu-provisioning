@@ -1,40 +1,23 @@
 - hosts: all
-  gather_facts: yes         
   become: no
   roles:
+    - show_variables
+    - hostname
+    - sshd
     - ubuntu-basics
-    - hosts
-  vars:
-    # for hosts:
-    # hosts_table:
-    #  - hostname: host01.local
-    #    ipv4_address: 192.168.0.1
 
-    # for role: add_group
-    # my_groups:
-    #   - group: my_group
-    #     gid: 10000
-
-    # for role: add_user
-    # my_users:
-    #   - user: my_user
-    #     group: my_group
-    #     groups: my_group,adm,sudo
-    #     password:
-    #     uid: 10000
-    #     createhome: yes
-
-
-- hosts: apt-mirror-server
-  gather_facts: no           
+- hosts: cluster-master
+  gather_facts: no
   become: no
-  vars:
-    apt_mirror_storage_path: /mnt/disk1/apt-mirror
   roles:
     - apt-mirror
+    - dnsmasq
+  vars:
+    - dns_table:
+      - nameserver: 8.8.8.8
+      - nameserver: 8.8.4.4
 
-
-- hosts: apt-mirror-client
+- hosts: cluster-slave
   gather_facts: no
   become: no
   roles:
@@ -42,18 +25,44 @@
   vars:
     my_apt_server: tristan.local
     
-
-- hosts: dns-server
-  roles:
-    - dnsmasq
+- hosts: th-work
   vars:
-    dns_table:
-      - nameserver: 8.8.8.8
-      - nameserver: 8.8.4.4
-  
-
-- hosts: cluster-master
-  gather_facts: no
-  sudo: no
+    hosts_table:
+      - hostname: e2km1i.local
+        ipv4_address: 192.168.100.11
+        alias: e2km1i
+      - hostname: rnas6.local
+        ipv4_address: 192.168.100.12
+        alias: rnas6
+      - hostname: tristan.local
+        ipv4_address: 192.168.100.20
+        alias: tristan
+      - hostname: walkure01.local
+        ipv4_address: 192.168.100.21
+        alias: walkure01
+      - hostname: walkure02.local
+        ipv4_address: 192.168.100.22
+        alias: walkure02
+      - hostname: walkure03.local
+        ipv4_address: 192.168.100.23
+        alias: walkure03
+      - hostname: walkure04.local
+        ipv4_address: 192.168.100.24
+        alias: walkure04
+      - hostname: walkure05.local
+        ipv4_address: 192.168.100.25
+        alias: walkure05
+      - hostname: walkure06.local
+        ipv4_address: 192.168.100.26
+        alias: walkure06
+      - hostname: walkure07.local
+        ipv4_address: 192.168.100.27
+        alias: walkure07
+      - hostname: walkure08.local
+        ipv4_address: 192.168.100.28
+        alias: walkure08
+  roles:
+    - hosts
+    - hostname
 
   

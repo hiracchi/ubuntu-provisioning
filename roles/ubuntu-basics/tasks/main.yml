@@ -1,6 +1,6 @@
 ---
 - name: install sysv-rc-conf
-  sudo: yes
+  become: yes
   apt: pkg={{ item }} force=yes update_cache=yes state=latest
   with_items:
     - sysv-rc-conf
@@ -8,4 +8,7 @@
 - include: shell.yml
 - include: ntp.yml
 - include: editor.yml
-- include: enable_debug.yml
+- include: devenv.yml
+- include: devtools.yml
+- include: python.yml
+- include: gdb.yml

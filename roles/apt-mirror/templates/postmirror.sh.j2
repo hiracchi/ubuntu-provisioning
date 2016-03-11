@@ -3,7 +3,7 @@
 RSYNC="rsync --recursive --times --links --hard-links --delete --delete-after"
 SOURCE="rsync://ftp.jaist.ac.jp/pub/Linux/ubuntu"
 TARGET="/var/spool/apt-mirror/mirror/archive.ubuntu.com/ubuntu" 
-dists=(trusty trusty-security trusty-updates trusty-backports)
+dists=(raring raring-security raring-updates raring-backports)
 
 for dist in "${dists[@]}"; do 
   ${RSYNC} ${SOURCE}/dists/${dist}/main/i18n/ ${TARGET}/dists/${dist}/main/i18n/ 
