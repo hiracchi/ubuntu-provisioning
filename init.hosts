@@ -1,8 +1,5 @@
 [vagrant]
-vagrant
-
-[vagrant:vars]
-ansible_ssh_user=vagrant
+vagrant ansible_host=127.0.0.1 ansible_port=2222 ansible_user=vagrant
 
 [all:vars]
 # ansible_ssh_user=

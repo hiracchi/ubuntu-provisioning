@@ -1,6 +1,5 @@
 [vagrant]
-vagrant
+vagrant ansible_host=127.0.0.1 ansible_port=2222 ansible_user=pdfansible ansible_private_key=./ssh/pdfansible
 
 [all:vars]
-ansible_ssh_user=pdfadmin
-
+# ansible_ssh_user=pdfansible

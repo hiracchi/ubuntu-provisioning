@@ -3,8 +3,8 @@
   roles:
     - show_variables
     - hostname
-    - sshd
-    - ubuntu-basics
+    #- sshd
+    #- ubuntu-basics
 
 - hosts: cluster-master
   gather_facts: no

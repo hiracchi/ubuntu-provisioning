@@ -1,0 +1,55 @@
+- hosts: all
+  gather_facts: yes
+  become: no
+  tasks:
+    - name: add groups
+      become: yes
+      group:
+        name: "{{ item.key }}"
+        gid: "{{ item.value.gid }}"
+        state: present
+      with_dict: "{{ my_groups }}"
+
+    - name: show users
+      become: yes
+      debug: msg="{{ item.key }} *** {{ item.value }}"
+      with_dict: "{{ my_users }}"
+
+    - name: add users
+      become: yes
+      user:
+        name: "{{ item.key }}"
+        groups: "{{ item.value.groups }}"
+        group: "{{ item.value.group }}"
+        password: "{{ item.value.password }}"
+        state: present
+        uid: 1001
+      with_dict: "{{ my_users }}"
+
+    - name: set up authorized_keys for the deploy user
+      become: yes
+      authorized_key:
+        user: "{{ item.key}}"
+        key: "{{ item.value.public_key }}"
+      with_dict: "{{ my_users }}"
+
+    - name: edit sudoers
+      become: yes
+      lineinfile:
+        dest: "/etc/sudoers.d/{{ item.key }}"
+        owner: root
+        group: root
+        mode: "0440"
+        state: present
+        create: yes
+        line: "{{ item.key }} {{ item.value.sudo_role }}"
+        validate: 'visudo -cf %s'
+      when: item.value.sudo_role is defined
+      with_dict: "{{ my_users }}"
+
+    - name: set private key on running host for next logon
+      local_action: shell echo "{{ item.value.private_key }}" > "./ssh/{{ item.key }}" && chmod 600 "./ssh/{{ item.key }}"
+      when: item.value.private_key
+      with_dict: "{{ my_users }}"
+
+

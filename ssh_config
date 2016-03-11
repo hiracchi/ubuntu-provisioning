@@ -7,17 +7,15 @@ Host *
   ServerAliveInterval 60
   StrictHostKeyChecking no
   UserKnownHostsFile /dev/null
-  IdentityFile ./ssh/pdfadmin
+  IdentityFile ./ssh/pdfansible
 
-Host vagrant
-  HostName 127.0.0.1
-  User vagrant
-  Port 2222
-  UserKnownHostsFile /dev/null
-  StrictHostKeyChecking no
-  PasswordAuthentication no
-  IdentityFile ./ssh/vagrant_private_key
-  IdentitiesOnly yes
-  LogLevel FATAL    
+#Host vagrant
+#  HostName 127.0.0.1
+#  # User vagrant
+#  Port 2222
+#  UserKnownHostsFile /dev/null
+#  StrictHostKeyChecking no
+#  # PasswordAuthentication no
+#  IdentitiesOnly yes
+#  LogLevel FATAL    
     
-
