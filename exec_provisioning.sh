@@ -6,6 +6,14 @@ GROUP="vagrant"
 ASK_PASS="--ask-pass -c paramiko"
 ASK_VAULT_PASS="--ask-vault-pass"
 
+check_connect()
+{
+    ansible -i ubuntu-basics.hosts \
+        ${ASK_VAULT_PASS} \
+        -a "uptime" ${GROUP} 2>&1 > /dev/null
+    return $?
+}
+
 initialize()
 {
     echo "initialize ..."
@@ -37,7 +45,7 @@ do_provisioning()
 
 
 # main
-ansible -i ubuntu-basics.hosts -a "uptime" ${GROUP} 2>&1 > /dev/null || initialize
+check_connect || initialize
 do_provisioning
 
 # initialize
