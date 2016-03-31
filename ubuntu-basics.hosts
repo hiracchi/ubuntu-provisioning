@@ -1,5 +1,15 @@
 [vagrant]
-vagrant ansible_host=127.0.0.1 ansible_port=2222 ansible_user=pdfansible ansible_private_key=./ssh/pdfansible
+vagrant ansible_host=127.0.0.1 ansible_port=2222 
+
+[cluster-master]
+vagrant ansible_host=127.0.0.1 ansible_port=2222 
+
+[th-work]
+#walkure05 ansible_host=192.168.100.25 ansible_port=22
+#walkure06 ansible_host=192.168.100.26 ansible_port=22
+#walkure07 ansible_host=192.168.100.27 ansible_port=22
+#walkure08 ansible_host=192.168.100.28 ansible_port=22
 
 [all:vars]
-# ansible_ssh_user=pdfansible
+ansible_ssh_user=pdfansible
+ansible_private_key=./ssh/pdfansible

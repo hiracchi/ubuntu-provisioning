@@ -1,5 +1,9 @@
 ---
-- name: install sysv-rc-conf
-  apt: pkg={{ item }} force=yes update_cache=yes state=latest
-  with_items:
-    - sysv-rc-conf
+- name: create resolvconf/resolv.conf.d/base
+  become: yes
+  template: src=resolvconf_base.j2 dest=/etc/resolvconf/resolv.conf.d/base
+
+- name: update resolvconf
+  become: yes
+  shell: resolvconf -u
+

@@ -4,9 +4,9 @@
   with_items:
     - ntp
 - name: copy NTP setting file
-  sudo: yes
+  become: yes
   template: src=ntp.conf.j2 dest=/etc/ntp.conf owner=root mode=0644
   notify: restart ntp server
 - name: service ntp
-  sudo: yes
+  become: yes
   service: name=ntp enabled=yes state=restarted

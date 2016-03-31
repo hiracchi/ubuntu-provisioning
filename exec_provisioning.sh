@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERBOSE="-vvvv"
+# VERBOSE="-vvvv"
 GROUP="vagrant"
 # DRY_RUN="-C"
 ASK_PASS="--ask-pass -c paramiko"

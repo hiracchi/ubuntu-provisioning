@@ -1,6 +1,11 @@
 [vagrant]
 vagrant ansible_host=127.0.0.1 ansible_port=2222 ansible_user=vagrant
 
+
+[th-work]
+# walkure05 ansible_host=192.168.25 ansible_port=22 ansible_user=pdfadmin
+
+
 [all:vars]
 # ansible_ssh_user=
 # ansible_ssh_pass=

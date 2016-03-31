@@ -1,21 +1,23 @@
 - hosts: all
   become: no
+  vars:
+    hosts_table:
+
   roles:
     - show_variables
     - hostname
-    #- sshd
-    #- ubuntu-basics
+    - hosts
+    - network
+    - sshd
+    - ubuntu-basics
 
 - hosts: cluster-master
   gather_facts: no
   become: no
   roles:
+    - postfix
     - apt-mirror
     - dnsmasq
-  vars:
-    - dns_table:
-      - nameserver: 8.8.8.8
-      - nameserver: 8.8.4.4
 
 - hosts: cluster-slave
   gather_facts: no

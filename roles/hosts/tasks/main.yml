@@ -6,6 +6,7 @@
 
 - name: show hosts_table
   debug: var=hosts_table
+
 - name: manage hosts
   become: yes
   template: src=hosts.j2 dest=/etc/hosts
