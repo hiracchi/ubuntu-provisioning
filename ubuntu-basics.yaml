@@ -11,12 +11,17 @@
     - sshd
     - ubuntu-basics
 
+- hosts: apt-mirror-host
+  gather_facts: no
+  become: no
+  roles:
+    - apt-mirror
+
 - hosts: cluster-master
   gather_facts: no
   become: no
   roles:
     - postfix
-    - apt-mirror
     - dnsmasq
 
 - hosts: cluster-slave

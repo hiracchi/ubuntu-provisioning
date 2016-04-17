@@ -1,13 +1,14 @@
 #!/bin/bash
 
 # VERBOSE="-vvvv"
-GROUP="vagrant"
+GROUP="th-work"
 # DRY_RUN="-C"
 ASK_PASS="--ask-pass -c paramiko"
 ASK_VAULT_PASS="--ask-vault-pass"
 
 check_connect()
 {
+    echo "checking connection using ssh..."
     ansible -i ubuntu-basics.hosts \
         ${ASK_VAULT_PASS} \
         -a "uptime" ${GROUP} 2>&1 > /dev/null
@@ -48,4 +49,3 @@ do_provisioning()
 check_connect || initialize
 do_provisioning
 
-# initialize

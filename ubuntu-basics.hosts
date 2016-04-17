@@ -4,7 +4,13 @@ vagrant ansible_host=127.0.0.1 ansible_port=2222
 [cluster-master]
 vagrant ansible_host=127.0.0.1 ansible_port=2222 
 
+[apt-mirror-host]
+vg-apt-mirror ansible_host=192.168.100.201 ansible_port=22
+
 [th-work]
+vg-apt-mirror ansible_host=192.168.100.201 ansible_port=22
+vg-frontend   ansible_host=192.168.100.202 ansible_port=22
+
 #walkure05 ansible_host=192.168.100.25 ansible_port=22
 #walkure06 ansible_host=192.168.100.26 ansible_port=22
 #walkure07 ansible_host=192.168.100.27 ansible_port=22
