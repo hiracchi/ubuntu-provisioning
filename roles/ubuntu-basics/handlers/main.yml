@@ -1,3 +1,0 @@
-- name: restart ntp server
-  service: name=ntp state=restarted
-

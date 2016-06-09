@@ -1,5 +1,0 @@
-#
----
-- name: private key for slave server
-  copy: dest=~/.ssh/slave.pem mode=600
-        content="{{ lookup('file', '~/.ssh/slave.pem') }}"
